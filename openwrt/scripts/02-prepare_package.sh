@@ -11,12 +11,6 @@ git clone https://$github/sbwml/feeds_packages_lang_node-prebuilt feeds/packages
 # Default settings
 git clone https://$github/sbwml/default-settings package/new/default-settings
 
-# DDNS
-sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
-
-# nlbwmon - disable syslog
-sed -i 's/stderr 1/stderr 0/g' feeds/packages/net/nlbwmon/files/nlbwmon.init
-
 # boost - 1.84.0
 rm -rf feeds/packages/libs/boost
 cp -a ../master/packages/libs/boost feeds/packages/libs/boost
@@ -30,58 +24,51 @@ rm -rf feeds/packages/utils/irqbalance
 cp -a ../master/packages/utils/irqbalance feeds/packages/utils/irqbalance
 
 # FRPC
-rm -rf feeds/packages/net/frp
-cp -a ../master/packages/net/frp feeds/packages/net/frp
-sed -i 's/procd_set_param stdout $stdout/procd_set_param stdout 0/g' feeds/packages/net/frp/files/frpc.init
-sed -i 's/procd_set_param stderr $stderr/procd_set_param stderr 0/g' feeds/packages/net/frp/files/frpc.init
-sed -i 's/stdout stderr //g' feeds/packages/net/frp/files/frpc.init
-sed -i '/stdout:bool/d;/stderr:bool/d' feeds/packages/net/frp/files/frpc.init
-sed -i '/stdout/d;/stderr/d' feeds/packages/net/frp/files/frpc.config
-sed -i 's/env conf_inc/env conf_inc enable/g' feeds/packages/net/frp/files/frpc.init
-sed -i "s/'conf_inc:list(string)'/& \\\\/" feeds/packages/net/frp/files/frpc.init
-sed -i "/conf_inc:list/a\\\t\t\'enable:bool:0\'" feeds/packages/net/frp/files/frpc.init
-sed -i '/procd_open_instance/i\\t\[ "$enable" -ne 1 \] \&\& return 1\n' feeds/packages/net/frp/files/frpc.init
-curl -s https://$mirror/openwrt/patch/luci/applications/001-luci-app-frpc-hide-token.patch | patch -p1
-curl -s https://$mirror/openwrt/patch/luci/applications/002-luci-app-frpc-add-enable-flag.patch | patch -p1
+#rm -rf feeds/packages/net/frp
+#cp -a ../master/packages/net/frp feeds/packages/net/frp
+#sed -i 's/procd_set_param stdout $stdout/procd_set_param stdout 0/g' feeds/packages/net/frp/files/frpc.init
+#sed -i 's/procd_set_param stderr $stderr/procd_set_param stderr 0/g' feeds/packages/net/frp/files/frpc.init
+#sed -i 's/stdout stderr //g' feeds/packages/net/frp/files/frpc.init
+#sed -i '/stdout:bool/d;/stderr:bool/d' feeds/packages/net/frp/files/frpc.init
+#sed -i '/stdout/d;/stderr/d' feeds/packages/net/frp/files/frpc.config
+#sed -i 's/env conf_inc/env conf_inc enable/g' feeds/packages/net/frp/files/frpc.init
+#sed -i "s/'conf_inc:list(string)'/& \\\\/" feeds/packages/net/frp/files/frpc.init
+#sed -i "/conf_inc:list/a\\\t\t\'enable:bool:0\'" feeds/packages/net/frp/files/frpc.init
+#sed -i '/procd_open_instance/i\\t\[ "$enable" -ne 1 \] \&\& return 1\n' feeds/packages/net/frp/files/frpc.init
+#curl -s https://$mirror/openwrt/patch/luci/applications/001-luci-app-frpc-hide-token.patch | patch -p1
+#curl -s https://$mirror/openwrt/patch/luci/applications/002-luci-app-frpc-add-enable-flag.patch | patch -p1
 
 # haproxy - bump version
 rm -rf feeds/packages/net/haproxy
 cp -a ../master/packages/net/haproxy feeds/packages/net/haproxy
 
 # samba4 - bump version
-rm -rf feeds/packages/net/samba4
-git clone https://$github/sbwml/feeds_packages_net_samba4 feeds/packages/net/samba4
+#rm -rf feeds/packages/net/samba4
+#git clone https://$github/sbwml/feeds_packages_net_samba4 feeds/packages/net/samba4
 # enable multi-channel
-sed -i '/workgroup/a \\n\t## enable multi-channel' feeds/packages/net/samba4/files/smb.conf.template
-sed -i '/enable multi-channel/a \\tserver multi channel support = yes' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i '/workgroup/a \\n\t## enable multi-channel' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i '/enable multi-channel/a \\tserver multi channel support = yes' feeds/packages/net/samba4/files/smb.conf.template
 # default config
-sed -i 's/#aio read size = 0/aio read size = 0/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#aio write size = 0/aio write size = 0/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/invalid users = root/#invalid users = root/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/bind interfaces only = yes/bind interfaces only = no/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#create mask/create mask/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#directory mask/directory mask/g' feeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' feeds/luci/applications/luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
-sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/samba.config
-sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#aio read size = 0/aio read size = 0/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#aio write size = 0/aio write size = 0/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/invalid users = root/#invalid users = root/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/bind interfaces only = yes/bind interfaces only = no/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#create mask/create mask/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#directory mask/directory mask/g' feeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' feeds/luci/applications/luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
+#sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/samba.config
+#sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/smb.conf.template
 # rk3568 bind cpus
-[ "$platform" = "rk3568" ] && sed -i 's#/usr/sbin/smbd -F#/usr/bin/taskset -c 1,0 /usr/sbin/smbd -F#' feeds/packages/net/samba4/files/samba.init
+#[ "$platform" = "rk3568" ] && sed -i 's#/usr/sbin/smbd -F#/usr/bin/taskset -c 1,0 /usr/sbin/smbd -F#' feeds/packages/net/samba4/files/samba.init
 
-# samba4 user management
-git clone https://github.com/sbwml/luci-app-smbuser package/new/luci-app-smbuser
+# OpenClash
+git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/new/OpenClash
 
 # autoCore
 git clone https://$github/sbwml/autocore-arm -b openwrt-23.05 package/new/autocore
 
-# Aria2 & ariaNG
-rm -rf feeds/packages/net/ariang
-rm -rf feeds/luci/applications/luci-app-aria2
-git clone https://$github/sbwml/ariang-nginx package/new/ariang-nginx
-rm -rf feeds/packages/net/aria2
-git clone https://$github/sbwml/feeds_packages_net_aria2 -b 22.03 feeds/packages/net/aria2
-
-# AirConnect
-git clone https://$github/sbwml/luci-app-airconnect package/new/airconnect
+# ddns-go
+git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 
 # netkit-ftp
 git clone https://$github/sbwml/package_new_ftp package/new/ftp
@@ -94,8 +81,8 @@ rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 git clone https://$github/sbwml/openwrt_helloworld package/new/helloworld -b v5
 
 # DAED
-git clone https://$github/sbwml/luci-app-daed package/new/daed
-git clone https://$github/sbwml/luci-app-daed-next package/new/daed-next
+#git clone https://$github/sbwml/luci-app-daed package/new/daed
+git clone https://github.com/QiuSimons/luci-app-daed-next package/new/daed-next
 
 # immortalwrt homeproxy
 git clone https://$github/immortalwrt/homeproxy package/new/homeproxy
@@ -110,24 +97,13 @@ rm -rf feeds/packages/admin/netdata
 cp -a ../master/packages/admin/netdata feeds/packages/admin/netdata
 sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 
-# OpenAI
-git clone https://$github/sbwml/luci-app-openai package/new/openai
-
-# qBittorrent
-git clone https://$github/sbwml/luci-app-qbittorrent package/new/qbittorrent
-
 # unblockneteasemusic
 git clone https://$github/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/new/luci-app-unblockneteasemusic
-sed -i 's/解除网易云音乐播放限制/网易云音乐解锁/g' package/new/luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
-
-# xunlei
-git clone https://$github/sbwml/luci-app-xunlei package/new/xunlei
+sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/new/luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
 
 # Theme
 git clone --depth 1 https://$github/sbwml/luci-theme-argon.git package/new/luci-theme-argon
-
-# Mosdns
-git clone https://$github/sbwml/luci-app-mosdns -b v5 package/new/mosdns
+sed -i 's/Argon 主题设置/主题设置/g' package/new/luci-theme-argon/luci-app-argon-config/po/zh_Hans/argon-config.po
 
 # OpenAppFilter
 git clone https://$github/sbwml/OpenAppFilter --depth=1 package/new/OpenAppFilter
@@ -136,10 +112,6 @@ git clone https://$github/sbwml/OpenAppFilter --depth=1 package/new/OpenAppFilte
 rm -rf feeds/packages/net/iperf3
 cp -a ../master/packages/net/iperf3 feeds/packages/net/iperf3
 sed -i "s/D_GNU_SOURCE/D_GNU_SOURCE -funroll-loops/g" feeds/packages/net/iperf3/Makefile
-
-# nlbwmon
-sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # custom packages
 rm -rf feeds/packages/utils/coremark
@@ -156,9 +128,9 @@ sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi
 sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
 
 # FRPC Translation
-sed -i 's,发送,Transmission,g' feeds/luci/applications/luci-app-transmission/po/zh_Hans/transmission.po
-sed -i 's,frp 服务器,FRP 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
-sed -i 's,frp 客户端,FRP 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
+#sed -i 's,发送,Transmission,g' feeds/luci/applications/luci-app-transmission/po/zh_Hans/transmission.po
+#sed -i 's,frp 服务器,FRP 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
+#sed -i 's,frp 客户端,FRP 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
 
 # SQM Translation
 mkdir -p feeds/packages/net/sqm-scripts/patches
@@ -172,9 +144,12 @@ sed -i "s,option port '8080',option port '1024',g" feeds/packages/multimedia/mjp
 sed -i "s,option fps '5',option fps '25',g" feeds/packages/multimedia/mjpg-streamer/files/mjpg-streamer.config
 
 # luci-app-mjpg-streamer
-rm -rf feeds/luci/applications/luci-app-mjpg-streamer
-git clone https://$github/sbwml/luci-app-mjpg-streamer feeds/luci/applications/luci-app-mjpg-streamer
+#rm -rf feeds/luci/applications/luci-app-mjpg-streamer
+#git clone https://$github/sbwml/luci-app-mjpg-streamer feeds/luci/applications/luci-app-mjpg-streamer
 
 # unzip
 rm -rf feeds/packages/utils/unzip
 git clone https://$github/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
+
+# 修改系统文件
+sed -i 's/WireGuard/WiGd状态/g' feeds/luci/protocols/luci-proto-wireguard/root/usr/share/luci/menu.d/luci-proto-wireguard.json

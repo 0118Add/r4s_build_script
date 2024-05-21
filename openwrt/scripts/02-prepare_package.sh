@@ -115,7 +115,7 @@ sed -i "s/D_GNU_SOURCE/D_GNU_SOURCE -funroll-loops/g" feeds/packages/net/iperf3/
 
 # custom packages
 rm -rf feeds/packages/utils/coremark
-git clone https://$github/sbwml/openwrt_pkgs package/new/custom --depth=1
+git clone https://github.com/8688Add/openwrt_pkgs package/new/custom --depth=1
 # coremark - prebuilt with gcc14
 if [ "$platform" = "rk3568" ]; then
     curl -s https://$mirror/openwrt/patch/coremark/coremark.aarch64-4-threads > package/new/custom/coremark/src/musl/coremark.aarch64

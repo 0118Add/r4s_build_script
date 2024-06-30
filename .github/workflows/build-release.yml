@@ -10,8 +10,8 @@ on:
         type: choice
         options:
           - 'armv8'
-          - 'nanopi-r4s'
-          - 'nanopi-r5s'
+          #- 'nanopi-r4s'
+          #- 'nanopi-r5s'
           - 'x86_64'
 
 jobs:

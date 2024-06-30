@@ -61,7 +61,7 @@ jobs:
       continue-on-error: true
       run: |
         export GITHUB_REPO=${{ github.repository }}
-        BUILD_FAST=y ENABLE_LTO=y ENABLE_LRNG=y ENABLE_BPF=y USE_GCC13=y USE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/master/openwrt/build.sh) rc2 ${{ github.event.inputs.device }}
+        BUILD_FAST=y ENABLE_LTO=y ENABLE_LRNG=y ENABLE_BPF=y USE_GCC15=y KERNEL_CLANG_LTO=y USE_MOLD=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/master/openwrt/build.sh) rc2 ${{ github.event.inputs.device }}
         cd openwrt
         tags=$(git describe --abbrev=0 --tags)
         echo "latest_release=$tags" >>$GITHUB_ENV
